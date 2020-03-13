@@ -38,6 +38,7 @@ namespace Home_todo_list___web_api.Controllers
         [HttpGet]
         public IEnumerable<User> Get()
         {
+            //_logger.LogInformation("Log message in the About() method");
             return new List<User>()
             {
                 new User
