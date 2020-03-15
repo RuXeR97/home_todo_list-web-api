@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Dtos\Dtos.csproj" />
     <ProjectReference Include="..\Home todo list - entities\Home todo list - entities.csproj" />
   </ItemGroup>
 

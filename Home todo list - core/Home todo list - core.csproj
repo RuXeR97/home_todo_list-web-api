@@ -6,6 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Home todo list - core.Abstraction\Home todo list - core.Abstraction.csproj" />
     <ProjectReference Include="..\Home todo list - entities\Home todo list - entities.csproj" />
     <ProjectReference Include="..\Home todo list - infrastructure.Abstraction\Home todo list - infrastructure.Abstraction.csproj" />

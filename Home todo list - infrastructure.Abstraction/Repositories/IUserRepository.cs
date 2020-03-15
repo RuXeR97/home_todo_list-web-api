@@ -7,5 +7,6 @@ namespace Home_todo_list___infrastructure.Abstraction.Repositories
     {
         User Authenticate(string username, string password);
         IEnumerable<User> GetAll();
+
     }
 }
