@@ -1,4 +1,4 @@
-﻿namespace Home_todo_list___web_api.Entities
+﻿namespace Home_todo_list___entities
 {
     public class User
     {
@@ -7,6 +7,7 @@
         public string LastName { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public string Email { get; set; }
         public string Token { get; set; }
     }
 }

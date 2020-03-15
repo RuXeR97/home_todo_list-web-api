@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Home_todo_list___core</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Home todo list - core.Abstraction\Home todo list - core.Abstraction.csproj" />
+    <ProjectReference Include="..\Home todo list - entities\Home todo list - entities.csproj" />
+    <ProjectReference Include="..\Home todo list - infrastructure.Abstraction\Home todo list - infrastructure.Abstraction.csproj" />
+  </ItemGroup>
+
+</Project>

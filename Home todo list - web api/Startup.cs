@@ -1,4 +1,11 @@
+using AutoMapper;
+using Home_todo_list___core.Abstraction.BusinessLogic;
+using Home_todo_list___core.BusinessLogic;
+using Home_todo_list___infrastructure.Abstraction.Repositories;
+using Home_todo_list___infrastructure.Other;
+using Home_todo_list___infrastructure.Repositories;
 using Home_todo_list___web_api.Helpers;
+using Home_todo_list___web_api.Other;
 using Home_todo_list___web_api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -50,8 +57,20 @@ namespace Home_todo_list___web_api
                     ValidateAudience = false
                 };
             });
+
+            // Auto Mapper Configurations
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
             // configure DI for application services
-            services.AddScoped<IUserService, UserService>();
+            services.AddDbContext<HomeTodoListDbContext>();
+            services.AddScoped<IUserLogic, UserLogic>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
