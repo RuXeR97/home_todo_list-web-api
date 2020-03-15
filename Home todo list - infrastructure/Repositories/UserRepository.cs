@@ -1,4 +1,6 @@
 ﻿using Home_todo_list___entities;
+using Home_todo_list___entities.Entities;
+using Home_todo_list___entities.OutputDtos;
 using Home_todo_list___infrastructure.Abstraction.Repositories;
 using Home_todo_list___infrastructure.Other;
 using System.Collections.Generic;
@@ -13,21 +15,21 @@ namespace Home_todo_list___infrastructure.Repositories
         {
             _dbContext = dbContext;
         }
-        public User Authenticate(string username, string password)
+        public UserAuthenticatedDto Authenticate(AuthenticateUserModel authenticateUserModel)
         {
-            var user = _dbContext.Users.SingleOrDefault(x => x.Username == username && x.PasswordHash.ToString() == password);
+            var user = _dbContext.Users.SingleOrDefault(x => x.Username == authenticateUserModel.Username && x.PasswordHash.ToString() == authenticateUserModel.Password);
             return null;
             //        if (user == null)
             //            return null;
         }
 
-        public IEnumerable<User> GetAll()
+        public IEnumerable<UserDto> GetAll()
         {
             var asd = _dbContext.Users.ToList();
-            var users = new List<User>();
+            var users = new List<UserDto>();
             foreach(var item in asd)
             {
-                users.Add(new User()
+                users.Add(new UserDto()
                 {
                     Id = item.Id,
                     FirstName = item.FirstName,

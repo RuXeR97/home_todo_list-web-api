@@ -19,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dtos\Dtos.csproj" />
     <ProjectReference Include="..\Home todo list - core.Abstraction\Home todo list - core.Abstraction.csproj" />
     <ProjectReference Include="..\Home todo list - core\Home todo list - core.csproj" />
     <ProjectReference Include="..\Home todo list - infrastructure.Abstraction\Home todo list - infrastructure.Abstraction.csproj" />

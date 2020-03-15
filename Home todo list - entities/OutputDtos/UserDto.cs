@@ -1,6 +1,10 @@
-﻿namespace Home_todo_list___entities
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Home_todo_list___entities.OutputDtos
 {
-    public class User
+    public class UserDto
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

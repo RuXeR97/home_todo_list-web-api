@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Dtos;
 using Home_todo_list___core.Abstraction.BusinessLogic;
-using Home_todo_list___entities;
-using Home_todo_list___web_api.Entities;
+using Home_todo_list___entities.Entities;
+using Home_todo_list___entities.InputDtos;
+using Home_todo_list___entities.OutputDtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -28,9 +28,10 @@ namespace Home_todo_list___web_api.Controllers
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody]AuthenticateModel model)
+        public ActionResult<UserAuthenticatedDto> Authenticate([FromBody]AuthenticateDto model)
         {
-            var user = _userLogic.Authenticate(model.Username, model.Password);
+            var authenticateUserModel = _mapper.Map<AuthenticateUserModel>(model);
+            var user = _userLogic.Authenticate(authenticateUserModel);
 
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
@@ -40,9 +41,10 @@ namespace Home_todo_list___web_api.Controllers
 
         [AllowAnonymous]
         [HttpPost("registeraccount")]
-        public ActionResult<RegisterAccountDto> RegisterAccount([FromBody]RegisterAccountModel model)
+        public ActionResult<UserRegisteredDto> RegisterAccount([FromBody]RegisterAccountDto model)
         {
-            var user = _userLogic.RegisterAccount(model);
+            var registerAccountModel = _mapper.Map<RegisterAccountModel>(model);
+            var user = _userLogic.RegisterAccount(registerAccountModel);
 
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
@@ -52,7 +54,7 @@ namespace Home_todo_list___web_api.Controllers
 
 
         [HttpGet]
-        public IEnumerable<User> Get()
+        public IEnumerable<UserDto> Get()
         {
             //_logger.LogInformation("Log message in the About() method");
             return _userLogic.GetAll();

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Dtos;
-using Home_todo_list___web_api.Entities;
+using Home_todo_list___entities.Entities;
+using Home_todo_list___entities.InputDtos;
 
 namespace Home_todo_list___web_api.Other
 {
@@ -10,6 +10,9 @@ namespace Home_todo_list___web_api.Other
         {
             CreateMap<RegisterAccountDto, RegisterAccountModel>();
             CreateMap<RegisterAccountModel, RegisterAccountDto>();
+
+            CreateMap<AuthenticateDto, AuthenticateUserModel>();
+            CreateMap<AuthenticateUserModel, AuthenticateDto>();
         }
     }
 }
