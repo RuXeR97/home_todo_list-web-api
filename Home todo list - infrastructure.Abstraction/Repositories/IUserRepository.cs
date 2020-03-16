@@ -1,5 +1,4 @@
-﻿using Home_todo_list___entities;
-using Home_todo_list___entities.Entities;
+﻿using Home_todo_list___entities.Entities;
 using Home_todo_list___entities.OutputDtos;
 using System.Collections.Generic;
 
@@ -9,6 +8,7 @@ namespace Home_todo_list___infrastructure.Abstraction.Repositories
     {
         UserAuthenticatedDto Authenticate(AuthenticateUserModel authenticateUserModel);
         IEnumerable<UserDto> GetAll();
+        UserRegisteredDto RegisterAccount(RegisterAccountModel registerAccountModel);
 
     }
 }

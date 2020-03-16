@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Home todo list - common\Home todo list - common.csproj" />
     <ProjectReference Include="..\Home todo list - core.Abstraction\Home todo list - core.Abstraction.csproj" />
     <ProjectReference Include="..\Home todo list - entities\Home todo list - entities.csproj" />
     <ProjectReference Include="..\Home todo list - infrastructure.Abstraction\Home todo list - infrastructure.Abstraction.csproj" />

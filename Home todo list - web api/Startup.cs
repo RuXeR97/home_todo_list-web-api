@@ -1,4 +1,5 @@
 using AutoMapper;
+using Home_todo_list___common;
 using Home_todo_list___core.Abstraction.BusinessLogic;
 using Home_todo_list___core.BusinessLogic;
 using Home_todo_list___infrastructure.Abstraction.Repositories;
@@ -6,7 +7,6 @@ using Home_todo_list___infrastructure.Other;
 using Home_todo_list___infrastructure.Repositories;
 using Home_todo_list___web_api.Helpers;
 using Home_todo_list___web_api.Other;
-using Home_todo_list___web_api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,6 +40,7 @@ namespace Home_todo_list___web_api
             // configure jwt authentication
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            GlobalSettings.Secret = appSettings.Secret;
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -71,6 +72,7 @@ namespace Home_todo_list___web_api
             services.AddDbContext<HomeTodoListDbContext>();
             services.AddScoped<IUserLogic, UserLogic>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddSingleton(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Home_todo_list___entities.Entities
+﻿namespace Home_todo_list___entities.Entities
 {
     public class RegisterAccountModel
     {
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
     }
 }
