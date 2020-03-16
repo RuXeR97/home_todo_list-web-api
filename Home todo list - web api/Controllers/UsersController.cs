@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Home_todo_list___web_api.Controllers
@@ -31,6 +32,8 @@ namespace Home_todo_list___web_api.Controllers
         [HttpPost("authenticate")]
         public async Task<ActionResult<UserAuthenticatedDto>> Authenticate([FromBody]AuthenticateDto model)
         {
+            //var claimsIdentity = this.User.Identity as ClaimsIdentity;
+            //var userId = claimsIdentity.FindFirst(ClaimTypes.Name)?.Value;
             var authenticateUserModel = _mapper.Map<AuthenticateUserModel>(model);
             var user = await _userLogic.Authenticate(authenticateUserModel);
 
