@@ -4,9 +4,11 @@ using Home_todo_list___entities.OutputDtos;
 using Home_todo_list___infrastructure.Abstraction.Repositories;
 using Home_todo_list___infrastructure.Entities;
 using Home_todo_list___infrastructure.Other;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Home_todo_list___infrastructure.Repositories
 {
@@ -19,9 +21,9 @@ namespace Home_todo_list___infrastructure.Repositories
             _dbContext = dbContext;
             _mapper = mapper;
         }
-        public UserAuthenticatedDto Authenticate(AuthenticateUserModel authenticateUserModel)
+        public async Task<UserAuthenticatedDto> Authenticate(AuthenticateUserModel authenticateUserModel)
         {
-            var user = _dbContext.Users.SingleOrDefault(x => x.Username == authenticateUserModel.Username && x.PasswordHash.ToString() == authenticateUserModel.Password);
+            var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Username == authenticateUserModel.Username);
 
             // check if password is correct
             if (!VerifyPasswordHash(authenticateUserModel.Password, user.PasswordHash, user.PasswordSalt))
@@ -29,26 +31,14 @@ namespace Home_todo_list___infrastructure.Repositories
 
             return _mapper.Map<UserAuthenticatedDto>(user);
         }
-
-        public IEnumerable<UserDto> GetAll()
+        public async Task<IEnumerable<UserDto>> GetAll()
         {
-            var asd = _dbContext.Users.ToList();
-            var users = new List<UserDto>();
-            foreach(var item in asd)
-            {
-                users.Add(new UserDto()
-                {
-                    Id = item.Id,
-                    FirstName = item.FirstName,
-                    LastName = item.LastName,
-                    Username = item.Username
-                });
-            }
+            var users = _dbContext.Users.ToList();
+            var usersDtos = _mapper.Map<IEnumerable<UserDto>>(users);
 
-            return users;
+            return usersDtos;
         }
-
-        public UserRegisteredDto RegisterAccount(RegisterAccountModel registerAccountModel)
+        public async Task<UserRegisteredDto> RegisterAccount(RegisterAccountModel registerAccountModel)
         {
             if (string.IsNullOrWhiteSpace(registerAccountModel.Password))
                 throw new Exception("Password is required");
@@ -63,10 +53,10 @@ namespace Home_todo_list___infrastructure.Repositories
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            var registeredUser = _dbContext.Users.Add(user);
-            _dbContext.SaveChanges();
+            await _dbContext.Users.AddAsync(user);
+            await _dbContext.SaveChangesAsync();
 
-            var registeredUserDto = _mapper.Map<UserRegisteredDto>(registeredUser);
+            var registeredUserDto = _mapper.Map<UserRegisteredDto>(user);
             return registeredUserDto;
         }
 
@@ -81,7 +71,6 @@ namespace Home_todo_list___infrastructure.Repositories
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
         }
-
         private static bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt)
         {
             if (password == null) throw new ArgumentNullException("password");

@@ -7,10 +7,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Home_todo_list___web_api.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -28,10 +29,10 @@ namespace Home_todo_list___web_api.Controllers
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public ActionResult<UserAuthenticatedDto> Authenticate([FromBody]AuthenticateDto model)
+        public async Task<ActionResult<UserAuthenticatedDto>> Authenticate([FromBody]AuthenticateDto model)
         {
             var authenticateUserModel = _mapper.Map<AuthenticateUserModel>(model);
-            var user = _userLogic.Authenticate(authenticateUserModel);
+            var user = await _userLogic.Authenticate(authenticateUserModel);
 
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
@@ -41,10 +42,10 @@ namespace Home_todo_list___web_api.Controllers
 
         [AllowAnonymous]
         [HttpPost("registeraccount")]
-        public ActionResult<UserRegisteredDto> RegisterAccount([FromBody]RegisterAccountDto model)
+        public async Task<ActionResult<UserRegisteredDto>> RegisterAccount([FromBody]RegisterAccountDto model)
         {
             var registerAccountModel = _mapper.Map<RegisterAccountModel>(model);
-            var user = _userLogic.RegisterAccount(registerAccountModel);
+            var user = await _userLogic.RegisterAccount(registerAccountModel);
 
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
@@ -54,10 +55,10 @@ namespace Home_todo_list___web_api.Controllers
 
 
         [HttpGet]
-        public IEnumerable<UserDto> Get()
+        public async Task<IEnumerable<UserDto>> Get()
         {
             //_logger.LogInformation("Log message in the About() method");
-            return _userLogic.GetAll();
+            return await _userLogic.GetAll();
         }
     }
 }

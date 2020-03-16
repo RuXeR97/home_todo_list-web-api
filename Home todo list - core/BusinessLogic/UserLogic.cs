@@ -1,5 +1,4 @@
-﻿using AutoMapper.Configuration;
-using Home_todo_list___common;
+﻿using Home_todo_list___common;
 using Home_todo_list___core.Abstraction.BusinessLogic;
 using Home_todo_list___entities.Entities;
 using Home_todo_list___entities.OutputDtos;
@@ -10,6 +9,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Home_todo_list___core.BusinessLogic
 {
@@ -20,9 +20,9 @@ namespace Home_todo_list___core.BusinessLogic
         {
             _userRepository = userRepository;
         }
-        public UserAuthenticatedDto Authenticate(AuthenticateUserModel authenticateUserModel)
+        public async Task<UserAuthenticatedDto> Authenticate(AuthenticateUserModel authenticateUserModel)
         {
-            var userFound = _userRepository.Authenticate(authenticateUserModel);
+            var userFound = await _userRepository.Authenticate(authenticateUserModel);
 
             if (userFound == null)
                 return null;
@@ -44,14 +44,14 @@ namespace Home_todo_list___core.BusinessLogic
             return userFound;
         }
 
-        public IEnumerable<UserDto> GetAll()
+        public async Task<IEnumerable<UserDto>> GetAll()
         {
-            return _userRepository.GetAll();
+            return await _userRepository.GetAll();
         }
 
-        public UserRegisteredDto RegisterAccount(RegisterAccountModel model)
+        public async Task<UserRegisteredDto> RegisterAccount(RegisterAccountModel model)
         {
-            return _userRepository.RegisterAccount(model);
+            return await _userRepository.RegisterAccount(model);
         }
     }
 }

@@ -24,15 +24,6 @@ namespace Home_todo_list___infrastructure.Other
                 .HasKey(bc => new { bc.ProjectId, bc.UserId });
             modelBuilder.Entity<UserProjectRight>()
                 .HasKey(bc => new { bc.ProjectRightId, bc.UserId });
-
-            modelBuilder.Entity<User>().HasData(
-            new User
-            {
-                Id = 1,
-                FirstName = "William",
-                LastName = "Shakespeare",
-                Username = "xd"
-            });
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Home_todo_list___entities.OutputDtos
+﻿namespace Home_todo_list___entities.OutputDtos
 {
     public class UserDto
     {
@@ -10,8 +6,6 @@ namespace Home_todo_list___entities.OutputDtos
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Username { get; set; }
-        public string Password { get; set; }
         public string Email { get; set; }
-        public string Token { get; set; }
     }
 }

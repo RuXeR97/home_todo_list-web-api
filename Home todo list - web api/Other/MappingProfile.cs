@@ -13,11 +13,20 @@ namespace Home_todo_list___web_api.Other
             CreateMap<RegisterAccountDto, RegisterAccountModel>();
             CreateMap<RegisterAccountModel, RegisterAccountDto>();
 
+            CreateMap<User, RegisterAccountModel>();
+            CreateMap<RegisterAccountModel, User>();
+
+            CreateMap<UserRegisteredDto, User>();
+            CreateMap<User, UserRegisteredDto>();
+
             CreateMap<AuthenticateDto, AuthenticateUserModel>();
             CreateMap<AuthenticateUserModel, AuthenticateDto>();
 
             CreateMap<UserAuthenticatedDto, User>();
             CreateMap<User, UserAuthenticatedDto>();
+
+            CreateMap<User, UserDto>();
+            CreateMap<UserDto, User>();
         }
     }
 }

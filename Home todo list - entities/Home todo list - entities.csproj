@@ -5,4 +5,16 @@
     <RootNamespace>Home_todo_list___entities</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Validators\Entities\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Home todo list - common\Home todo list - common.csproj" />
+  </ItemGroup>
+
 </Project>

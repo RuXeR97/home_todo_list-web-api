@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Home_todo_list___infrastructure.Entities
 {

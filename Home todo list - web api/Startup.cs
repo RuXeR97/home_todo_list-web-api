@@ -1,4 +1,5 @@
 using AutoMapper;
+using FluentValidation.AspNetCore;
 using Home_todo_list___common;
 using Home_todo_list___core.Abstraction.BusinessLogic;
 using Home_todo_list___core.BusinessLogic;
@@ -10,10 +11,12 @@ using Home_todo_list___web_api.Other;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Text;
 
 namespace Home_todo_list___web_api
@@ -31,7 +34,16 @@ namespace Home_todo_list___web_api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddControllers();
+
+            // configure controllers and fluent validation
+            services.AddControllers(options =>
+            {
+                options.Filters.Add(typeof(ValidateModelStateAttribute));
+            }).AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
 
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
