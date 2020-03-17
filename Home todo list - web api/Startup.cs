@@ -6,7 +6,9 @@ using Home_todo_list___core.BusinessLogic;
 using Home_todo_list___infrastructure.Abstraction.Repositories;
 using Home_todo_list___infrastructure.Other;
 using Home_todo_list___infrastructure.Repositories;
+using Home_todo_list___web_api.Extensions;
 using Home_todo_list___web_api.Helpers;
+using Home_todo_list___web_api.Logging;
 using Home_todo_list___web_api.Other;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -16,7 +18,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using NLog;
 using System;
+using System.IO;
 using System.Text;
 
 namespace Home_todo_list___web_api
@@ -25,6 +29,7 @@ namespace Home_todo_list___web_api
     {
         public Startup(IConfiguration configuration)
         {
+            LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
             Configuration = configuration;
         }
 
@@ -85,6 +90,7 @@ namespace Home_todo_list___web_api
             services.AddScoped<IUserLogic, UserLogic>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddSingleton(Configuration);
+            services.AddSingleton<ILoggerManager, LoggerManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -94,9 +100,9 @@ namespace Home_todo_list___web_api
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseHttpsRedirection();
 
+            app.ConfigureCustomExceptionMiddleware();
             app.UseRouting();
 
             // global cors policy

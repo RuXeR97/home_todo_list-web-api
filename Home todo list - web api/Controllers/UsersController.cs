@@ -5,9 +5,7 @@ using Home_todo_list___entities.InputDtos;
 using Home_todo_list___entities.OutputDtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Home_todo_list___web_api.Controllers
@@ -18,13 +16,11 @@ namespace Home_todo_list___web_api.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserLogic _userLogic;
-        private readonly ILogger<UsersController> _logger;
         private readonly IMapper _mapper;
 
-        public UsersController(IUserLogic userLogic, ILogger<UsersController> logger, IMapper mapper)
+        public UsersController(IUserLogic userLogic, IMapper mapper)
         {
             _userLogic = userLogic;
-            _logger = logger;
             _mapper = mapper;
         }
 
@@ -49,7 +45,6 @@ namespace Home_todo_list___web_api.Controllers
         {
             var registerAccountModel = _mapper.Map<RegisterAccountModel>(model);
             var user = await _userLogic.RegisterAccount(registerAccountModel);
-
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
 
@@ -60,7 +55,6 @@ namespace Home_todo_list___web_api.Controllers
         [HttpGet]
         public async Task<IEnumerable<UserDto>> Get()
         {
-            //_logger.LogInformation("Log message in the About() method");
             return await _userLogic.GetAll();
         }
     }

@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Configuration;
+using NLog.Web;
+
 namespace Home_todo_list___web_api
 {
     public class Program
@@ -12,13 +13,18 @@ namespace Home_todo_list___web_api
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args).ConfigureLogging((hostingContext, logging) =>
+            Host.CreateDefaultBuilder(args).ConfigureLogging((context, logging) =>
             {
-                logging.ClearProviders();
-                logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                logging.AddDebug();
-                logging.AddConsole();
-            }).ConfigureWebHostDefaults(webBuilder =>
+                logging.AddConfiguration(context.Configuration.GetSection("Logging"));
+
+                if (context.HostingEnvironment.IsDevelopment())
+                {
+                    logging.AddConsole();
+                    logging.AddDebug();
+                };
+                logging.SetMinimumLevel(LogLevel.Trace);
+            }).UseNLog()
+            .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
                 });
