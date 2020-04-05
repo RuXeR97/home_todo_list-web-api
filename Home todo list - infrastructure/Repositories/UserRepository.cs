@@ -26,7 +26,7 @@ namespace Home_todo_list___infrastructure.Repositories
             var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Username == authenticateUserModel.Username);
 
             // check if password is correct
-            if (!VerifyPasswordHash(authenticateUserModel.Password, user.PasswordHash, user.PasswordSalt))
+            if (user == null || !VerifyPasswordHash(authenticateUserModel.Password, user.PasswordHash, user.PasswordSalt))
                 return null;
 
             return _mapper.Map<UserAuthenticatedDto>(user);
