@@ -7,5 +7,8 @@
 
         public int ProjectRightId { get; set; }
         public ProjectRight ProjectRight { get; set; }
+
+        public int ProjectId { get; set; }
+        public Project Project { get; set; }
     }
 }

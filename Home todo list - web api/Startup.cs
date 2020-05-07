@@ -3,6 +3,8 @@ using FluentValidation.AspNetCore;
 using Home_todo_list___common;
 using Home_todo_list___core.Abstraction.BusinessLogic;
 using Home_todo_list___core.BusinessLogic;
+using Home_todo_list___entities.Entities;
+using Home_todo_list___entities.OutputDtos;
 using Home_todo_list___infrastructure.Abstraction.Repositories;
 using Home_todo_list___infrastructure.Other;
 using Home_todo_list___infrastructure.Repositories;
@@ -86,9 +88,14 @@ namespace Home_todo_list___web_api
             services.AddSingleton(mapper);
 
             // configure DI for application services
+            HomeTodoListDbContext.ConnectionString = appSettings.ConnectionString;
             services.AddDbContext<HomeTodoListDbContext>();
             services.AddScoped<IUserLogic, UserLogic>();
+            services.AddScoped<ICRUDLogic<ProjectModel, ProjectsPagedDto, ProjectDto>, ProjectLogic>();
+
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICRUDRepository<ProjectModel, ProjectsPagedDto, ProjectDto>, ProjectRepository>();
+
             services.AddSingleton(Configuration);
             services.AddSingleton<ILoggerManager, LoggerManager>();
         }

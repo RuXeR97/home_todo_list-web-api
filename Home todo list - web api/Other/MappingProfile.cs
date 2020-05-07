@@ -10,23 +10,23 @@ namespace Home_todo_list___web_api.Other
     {
         public MappingProfile()
         {
-            CreateMap<RegisterAccountDto, RegisterAccountModel>();
-            CreateMap<RegisterAccountModel, RegisterAccountDto>();
+            CreateMap<RegisterAccountDto, RegisterAccountModel>().ReverseMap();
 
-            CreateMap<User, RegisterAccountModel>();
-            CreateMap<RegisterAccountModel, User>();
+            CreateMap<User, RegisterAccountModel>().ReverseMap();
 
-            CreateMap<UserRegisteredDto, User>();
-            CreateMap<User, UserRegisteredDto>();
+            CreateMap<UserRegisteredDto, User>().ReverseMap();
 
-            CreateMap<AuthenticateDto, AuthenticateUserModel>();
-            CreateMap<AuthenticateUserModel, AuthenticateDto>();
+            CreateMap<AuthenticateDto, AuthenticateUserModel>().ReverseMap();
 
-            CreateMap<UserAuthenticatedDto, User>();
-            CreateMap<User, UserAuthenticatedDto>();
+            CreateMap<UserAuthenticatedDto, User>().ReverseMap();
 
-            CreateMap<User, UserDto>();
-            CreateMap<UserDto, User>();
+            CreateMap<User, UserDto>().ReverseMap();
+
+            CreateMap<Project, ProjectDto>().ReverseMap();
+
+            CreateMap<ProjectModel, Project>().ReverseMap();
+
+            CreateMap<ProjectModel, ProjectDto>().ReverseMap();
         }
     }
 }

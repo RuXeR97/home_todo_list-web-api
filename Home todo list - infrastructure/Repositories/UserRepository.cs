@@ -33,7 +33,7 @@ namespace Home_todo_list___infrastructure.Repositories
         }
         public async Task<IEnumerable<UserDto>> GetAll()
         {
-            var users = _dbContext.Users.ToList();
+            var users = await _dbContext.Users.ToListAsync();
             var usersDtos = _mapper.Map<IEnumerable<UserDto>>(users);
 
             return usersDtos;

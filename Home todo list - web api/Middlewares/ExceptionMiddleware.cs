@@ -1,7 +1,6 @@
 ﻿using Home_todo_list___web_api.Logging;
 using Home_todo_list___web_api.Models;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Data.SqlClient;
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -24,6 +23,7 @@ namespace Home_todo_list___web_api.Middlewares
             try
             {
                 await _next(httpContext);
+                _logger.LogInfo(httpContext.Request.Path.Value);
             }
             catch (Exception ex)
             {

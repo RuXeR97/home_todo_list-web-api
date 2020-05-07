@@ -19,8 +19,9 @@ namespace Home_todo_list___web_api
 
                 if (context.HostingEnvironment.IsDevelopment())
                 {
+                    logging.ClearProviders();
                     logging.AddConsole();
-                    logging.AddDebug();
+                    //logging.AddDebug();
                 };
                 logging.SetMinimumLevel(LogLevel.Trace);
             }).UseNLog()
